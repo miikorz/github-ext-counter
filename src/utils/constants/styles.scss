@@ -1,0 +1,20 @@
+// Input colors
+$input-color: #99A3BA;
+$input-border: #CDD9ED;
+$input-background: #fff;
+$input-placeholder: #CBD1DC;
+
+$input-border-focus: #275EFE;
+
+$group-color: $input-color;
+$group-border: $input-border;
+$group-background: #EEF4FF;
+
+$group-color-focus: #fff;
+$group-border-focus: $input-border-focus;
+$group-background-focus: #678EFE;
+
+// Button colors
+$button-border: $input-border;
+$button-color-text: $input-color;
+$button-color-hover: $group-background;

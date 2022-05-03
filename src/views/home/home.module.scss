@@ -1,0 +1,19 @@
+.home {
+  display: flex;
+
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 20%;
+    margin-top: 5vh;
+    justify-content: space-between;
+    padding: 30px;
+    align-items: center;
+  }
+
+  .resultContainer {
+    padding: 30px;
+    width: 80%;
+  }
+}
