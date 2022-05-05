@@ -147,7 +147,7 @@ const Home: React.FC = () => {
         )}
         {displayError && (
           <ErrorContainer>
-            API returned an error, either the owner or repository doesn't exist!
+            API returned an error, either the owner or repository doesn't exist or you exceeded the number of allowed requests!
           </ErrorContainer>
         )}
       </div>
