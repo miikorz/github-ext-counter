@@ -1,20 +1,32 @@
 // Input colors
-$input-color: #99A3BA;
-$input-border: #CDD9ED;
-$input-background: #fff;
-$input-placeholder: #CBD1DC;
-
-$input-border-focus: #275EFE;
+$input-color: #191833;
+$input-border: #1236b9;
+$input-background: white;
+$input-placeholder: #a29d9d;
+$input-border-focus: #001d75;
 
 $group-color: $input-color;
 $group-border: $input-border;
-$group-background: #EEF4FF;
+$group-background: #cadbfa;
 
 $group-color-focus: #fff;
 $group-border-focus: $input-border-focus;
-$group-background-focus: #678EFE;
+$group-background-focus: #526bb3;
 
 // Button colors
 $button-border: $input-border;
+$button-background: rgb(219, 224, 246);
 $button-color-text: $input-color;
-$button-color-hover: $group-background;
+$button-color-hover: #a4b1cb;
+$button-color-active: #4a5875;
+
+// List colors
+$list-number-color: $input-color;
+$list-border-color: $input-color;
+$list-item-background: $input-background;
+$list-item-text: $input-color;
+$list-color-hover: $button-color-active;
+$list-text-hover: $group-color-focus;
+
+// Responsive width
+$responsive-width: 1080px;

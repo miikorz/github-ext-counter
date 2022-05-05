@@ -14,7 +14,7 @@
   text-align: center;
   transition: all 0.2s;
   cursor: pointer;
-  background-color: white;
+  background-color: $button-background;
 
   &.disabled {
     cursor: not-allowed;
@@ -23,12 +23,17 @@
   }
 
   &:hover {
-    color: $button-color-text;
     background-color: $button-color-hover;
   
     &:active {
-      background-color: rgb(54, 54, 93);
+      color: white;
+      background-color: $button-color-active;
     }
+  }
+
+  @media (max-width: $responsive-width) {
+    width: 50%;
+    margin-bottom: 20px;
   }
 }
 

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styles from "./textInput.module.scss";
+import cn from "classnames";
 
 export interface TextInputProps {
   placeholder: string;
-  label: string;
   maxLength: number;
   onChange: (value: string) => void;
+  label?: string;
+  disabled?: boolean;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -13,6 +15,7 @@ const TextInput: React.FC<TextInputProps> = ({
   label,
   maxLength,
   onChange,
+  disabled,
 }: TextInputProps) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -23,14 +26,15 @@ const TextInput: React.FC<TextInputProps> = ({
   };
   return (
     <div className={styles.formGroup}>
-      <span>{label}</span>
+      {label && <span>{label}</span>}
       <input
-        className={styles.formField}
+        className={cn(styles.formField, { [styles.disabled]: disabled })}
         type="text"
         value={inputValue}
         placeholder={placeholder}
         onChange={onHandleChangeInput}
         maxLength={maxLength}
+        disabled={disabled}
       />
     </div>
   );

@@ -1,19 +1,52 @@
+@import "src/utils/constants/styles.scss";
+
 .home {
   display: flex;
+  background-color: #1c2329;
 
   .formContainer {
     display: flex;
     flex-direction: column;
     height: 150px;
     width: 20%;
-    margin-top: 5vh;
     justify-content: space-between;
-    padding: 30px;
+    padding: 50px;
     align-items: center;
+
+    @media (max-width: $responsive-width) {
+      width: 100%;
+      padding: 0px;
+    }
   }
 
   .resultContainer {
-    padding: 30px;
+    padding: 50px;
     width: 80%;
+    background-size: 150px;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 80vh;
+
+    .searchInputContainer {
+      margin-bottom: 20px;
+    }
+
+    .descriptionText {
+      font-family: Arial, Helvetica, sans-serif;
+      color: $input-background;
+      font-size: 20px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: $responsive-width) {
+      width: 100%;
+      padding: 0px;
+      min-height: 50vh;
+    }
+  }
+
+  @media (max-width: $responsive-width) {
+    flex-direction: column;
+    padding: 35px;
   }
 }

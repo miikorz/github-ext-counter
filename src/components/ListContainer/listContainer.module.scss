@@ -1,0 +1,53 @@
+@import "src/utils/constants/styles.scss";
+
+.list {
+  width: 400px;
+  margin-left: 1vw;
+
+  .ol {
+    counter-reset: li;
+    list-style: none;
+    font-size: 15px;
+    padding: 0;
+    margin-bottom: 4em;
+  }
+
+  .text {
+    position: relative;
+    display: block;
+    padding: 0.4em 0.4em 0.4em 2em;
+    margin: 0.5em 0;
+    background: $list-item-background;
+    color: $list-item-text;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .text:hover {
+    background: $list-color-hover;
+    text-decoration: none;
+    transform: scale(1.1);
+    color: white;
+  }
+
+  .text:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: $list-item-background;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: 0.3em solid $list-border-color;
+    text-align: center;
+    font-weight: bold;
+    color: $list-number-color;
+  }
+
+  @media (max-width: $responsive-width) {
+    width: 100%;
+  }
+}

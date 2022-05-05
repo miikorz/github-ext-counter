@@ -21,12 +21,16 @@
     outline: none;
     border-color: $input-border-focus;
   }
+  &.disabled {
+    opacity: 0.5;
+  }
 }
 
 .formGroup {
   position: relative;
   display: flex;
   width: 100%;
+  
   & > span,
   .formField {
     white-space: nowrap;
