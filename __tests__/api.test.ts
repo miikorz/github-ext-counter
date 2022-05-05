@@ -6,7 +6,6 @@ import { branchesMock, treeMock } from './mockedData/data';
 // @ts-ignore
 global.fetch = jest.fn((url: string) => Promise.resolve({
   json: () => {
-    console.log(url);
     const returnBranch = url.includes(apiParams.BRANCHES);
     return Promise.resolve(returnBranch ? branchesMock : treeMock);
   },
@@ -24,7 +23,7 @@ describe('GitHub API response', () => {
   });
 
   it('should get the extension tree from the repository branch', async () => {
-    const extensionList = makeRequest(endPoints.getExtensionList(ownerMock, repoMock, 'main'));
+    const extensionList = makeRequest(endPoints.getExtensionList(ownerMock, repoMock, branchesMock[0].name));
   
     await expect(extensionList).resolves.toEqual(treeMock);
   });
