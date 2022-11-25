@@ -4,8 +4,7 @@ module.exports = {
   roots: ["__tests__"],
   moduleNameMapper: {
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
-    "^components/(.*)$": "<rootDir>/src/components/$1",
-    "^utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^components/(.*)$": "<rootDir>/src/app/components/$1",
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   testMatch: ["<rootDir>/__tests__/**/*.(test).{js,jsx,ts,tsx}"],

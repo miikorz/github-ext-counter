@@ -1,5 +1,5 @@
 import React from "react";
-import ExtensionsObject from "../../utils/interfaces/extensionsObject";
+import ExtensionsObject from "../../../domain/interfaces/extensionsObject";
 import styles from "./listContainer.module.scss";
 
 export interface ListContainerProps {

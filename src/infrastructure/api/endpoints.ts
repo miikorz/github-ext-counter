@@ -1,4 +1,4 @@
-import { apiParams } from '../constants/apiParams';
+import { apiParams } from './apiParams';
 
 export const endPoints = {
   getExtensionList: (owner: string, repo: string, sha: string) => `${owner}/${repo}/${apiParams.GIT}/${apiParams.TREES}/${sha}`,

@@ -1,4 +1,4 @@
-import { baseUrl } from '../constants/apiParams';
+import { baseUrl } from './apiParams';
 
 export async function makeRequest(url: string) {
   const options = {

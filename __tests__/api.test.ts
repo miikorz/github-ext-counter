@@ -1,6 +1,6 @@
-import { makeRequest } from '../src/utils/api/request'; 
-import { endPoints } from "../src/utils/api/endpoints";
-import { apiParams } from '../src/utils/constants/apiParams';
+import { makeRequest } from '../src/infrastructure/api/request'; 
+import { endPoints } from "../src/infrastructure/api/endpoints";
+import { apiParams } from '../src/infrastructure/api/apiParams';
 import { branchesMock, treeMock } from './mockedData/data';
 
 // @ts-ignore

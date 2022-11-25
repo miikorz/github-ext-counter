@@ -1,28 +1,29 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { makeRequest } from "../../utils/api/request";
-import { endPoints } from "../../utils/api/endpoints";
+import React, { useState } from "react";
+import { makeRequest } from "../../../infrastructure/api/request";
+import { endPoints } from "../../../infrastructure/api/endpoints";
 import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
-import getExtensionListFromTree from "../../utils/helpers";
-import ExtensionsObject from "../../utils/interfaces/extensionsObject";
+import getExtensionListFromTree from "../../../domain/services/helpers";
 import ErrorContainer from "../../components/ErrorContainer/index";
-import {
-  RepositoryFile,
-  TreeApiResponse,
-} from "../../utils/interfaces/apiResult";
 import ListContainer from "../../components/ListContainer";
 import logo from "../../assets/githublogo.png";
 import styles from "./home.module.scss";
-import BranchResponse from "../../utils/interfaces/branch";
+import BranchResponse from "../../../domain/interfaces/branch";
+import useBranchTree from "../../customHooks/useBranchTree";
 
 const Home: React.FC = () => {
-  const [extensionList, setExtensionList] = useState<ExtensionsObject>();
   const [repoOwner, setRepoOwner] = useState<string>("");
   const [repoName, setRepoName] = useState<string>("");
-  const [fileList, setFileList] = useState<RepositoryFile[]>([]);
-  const [displayError, setDisplayError] = useState<boolean>(false);
   let branchName: string;
-  let globalFileList: RepositoryFile[] = [];
+
+  const {
+    getBranchTree,
+    fileList,
+    extensionList,
+    setExtensionList,
+    displayError,
+    setDisplayError,
+  } = useBranchTree(repoName, repoOwner);
 
   const handleOnChangeOwner = (value: string) => {
     setRepoOwner(value);
@@ -54,29 +55,6 @@ const Home: React.FC = () => {
     }
   };
 
-  const getBranchTree = useCallback(
-    (branchName: string) => {
-      makeRequest(endPoints.getExtensionList(repoOwner, repoName, branchName))
-        .then((res: TreeApiResponse | undefined) => {
-          if (res?.tree) {
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            globalFileList = [...globalFileList, ...res.tree];
-            setFileList([...globalFileList]);
-          }
-          const shaArray: string[] | undefined = res?.tree
-            .filter((item: RepositoryFile) => item.type === "tree")
-            .map((i: RepositoryFile) => i.sha);
-          if (shaArray?.length) {
-            shaArray.forEach((sha: string) => getBranchTree(sha));
-          }
-        })
-        .catch(() => {
-          handleError();
-        });
-    },
-    [globalFileList, repoName, repoOwner]
-  );
-
   const isButtonDisabled = (): boolean => {
     if (repoOwner && repoName) {
       return false;
@@ -95,12 +73,6 @@ const Home: React.FC = () => {
       setExtensionList(getExtensionListFromTree(fileList));
     }
   };
-
-  useEffect(() => {
-    if (fileList?.length) {
-      setExtensionList(getExtensionListFromTree(fileList));
-    }
-  }, [fileList]);
 
   return (
     <div className={styles.home}>
@@ -147,7 +119,8 @@ const Home: React.FC = () => {
         )}
         {displayError && (
           <ErrorContainer>
-            API returned an error, either the owner or repository doesn't exist or you exceeded the number of allowed requests!
+            API returned an error, either the owner or repository doesn't exist
+            or you exceeded the number of allowed requests!
           </ErrorContainer>
         )}
       </div>

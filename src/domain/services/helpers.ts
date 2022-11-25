@@ -1,5 +1,5 @@
-import { RepositoryFile } from "./interfaces/apiResult";
-import ExtensionsObject from "./interfaces/extensionsObject";
+import { RepositoryFile } from "../interfaces/apiResult";
+import ExtensionsObject from "../interfaces/extensionsObject";
 
 export default function getExtensionListFromTree(fileArray: RepositoryFile[]): ExtensionsObject {
   const resultFormatted: ExtensionsObject = {};
