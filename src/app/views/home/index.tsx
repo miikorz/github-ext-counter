@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { makeRequest } from "../../../infrastructure/api/request";
-import { endPoints } from "../../../infrastructure/api/endpoints";
+import { httpGET } from "../../../infrastructure/api/httpClient";
+import { endPoints } from "../../../infrastructure/api/repositories/github/endpoints";
 import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
-import getExtensionListFromTree from "../../../domain/services/helpers";
 import ErrorContainer from "../../components/ErrorContainer/index";
 import ListContainer from "../../components/ListContainer";
 import logo from "../../assets/githublogo.png";
 import styles from "./home.module.scss";
-import BranchResponse from "../../../domain/interfaces/branch";
 import useBranchTree from "../../customHooks/useBranchTree";
+import BranchResponse from "../../../infrastructure/api/repositories/github/branch";
 
 const Home: React.FC = () => {
   const [repoOwner, setRepoOwner] = useState<string>("");
@@ -18,7 +17,6 @@ const Home: React.FC = () => {
 
   const {
     getBranchTree,
-    fileList,
     extensionList,
     setExtensionList,
     displayError,
@@ -41,8 +39,8 @@ const Home: React.FC = () => {
   const handleOnButtonClick = () => {
     if (repoOwner && repoName) {
       setDisplayError(false);
-      makeRequest(endPoints.getRepoBranches(repoOwner, repoName))
-        .then((res: BranchResponse[] | undefined) => {
+      httpGET<BranchResponse[]>(endPoints.getRepoBranches(repoOwner, repoName))
+        .then((res: BranchResponse[]) => {
           // We get the first branch on the repo
           if (res) {
             branchName = res[0].name;
@@ -62,17 +60,19 @@ const Home: React.FC = () => {
     return true;
   };
 
-  const handleOnSearch = (value: string) => {
-    if (value && extensionList) {
-      setExtensionList(
-        Object.fromEntries(
-          Object.entries(extensionList).filter(([key]) => key.includes(value))
-        )
-      );
-    } else {
-      setExtensionList(getExtensionListFromTree(fileList));
-    }
-  };
+  // TODO: move this to useBranchTree
+  // const handleOnSearch = (value: string) => {
+  //   if (value && extensionList) {
+  //     setExtensionList(
+  //       Object.fromEntries(
+  //         Object.entries(extensionList).filter(([key]) => key.includes(value))
+  //       )
+  //     );
+  //   } else {
+  //     const extensions = new Extensions(fileList);
+  //     setExtensionList(extensions.groupByType());
+  //   }
+  // };
 
   return (
     <div className={styles.home}>
@@ -100,10 +100,11 @@ const Home: React.FC = () => {
         style={{ backgroundImage: `url(${logo})` }}
       >
         <div className={styles.searchInputContainer}>
+          {/* // TODO: move search onChange on customHook */}
           <TextInput
             placeholder="Search for an extension!"
             maxLength={4}
-            onChange={handleOnSearch}
+            onChange={() => {}}
             disabled={!extensionList || displayError}
           />
         </div>
