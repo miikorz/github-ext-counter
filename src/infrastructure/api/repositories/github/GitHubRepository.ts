@@ -3,6 +3,7 @@ import { httpGET } from '../../httpClient';
 import { RepositoryFile, TreeApiResponse } from './apiResult';
 import endPoints from './endpoints';
 
+// * Do we need a class here?
 export class GitHubRepository {
     private headers = {
         'Accept': 'application/vnd.github.v3+json',
