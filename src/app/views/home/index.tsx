@@ -7,19 +7,24 @@ import logo from "../../assets/githublogo.png";
 import styles from "./home.module.scss";
 import useExtensionList from "../../customHooks/useExtensionList";
 
+export interface RepoValues {
+  repoOwner: string;
+  repoName: string;
+}
+
 const Home: React.FC = () => {
-  const [repoOwner, setRepoOwner] = useState<string>("");
-  const [repoName, setRepoName] = useState<string>("");
+  const [repoInputValues, setRepoInputValues] = useState<RepoValues>({
+    repoName: "",
+    repoOwner: "",
+  });
 
-  const { handleOnClick, extensionList, handleOnSearch, displayError } =
-    useExtensionList(repoName, repoOwner);
-
-  const isButtonDisabled = (): boolean => {
-    if (repoOwner && repoName) {
-      return false;
-    }
-    return true;
-  };
+  const {
+    handleOnClick,
+    extensionList,
+    handleOnSearch,
+    displayError,
+    isButtonDisabled,
+  } = useExtensionList(repoInputValues);
 
   return (
     <div className={styles.home}>
@@ -28,18 +33,22 @@ const Home: React.FC = () => {
           label="Owner"
           placeholder="Type the repo owner here!"
           maxLength={64}
-          onChange={setRepoOwner}
+          onChange={(ownerValue) =>
+            setRepoInputValues({ ...repoInputValues, repoOwner: ownerValue })
+          }
         />
         <TextInput
           label="Repository"
           placeholder="Type the repo name here!"
           maxLength={120}
-          onChange={setRepoName}
+          onChange={(nameValue) =>
+            setRepoInputValues({ ...repoInputValues, repoName: nameValue })
+          }
         />
         <Button
           label="Get extensions!"
           onClick={handleOnClick}
-          disabled={isButtonDisabled()}
+          disabled={isButtonDisabled}
         />
       </div>
       <div

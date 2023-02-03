@@ -1,10 +1,15 @@
-import { useCallback, useState } from "react";
-import ExtensionsObject from "../../domain/ExtensionsObject";
-import { GitHubRepository } from "../../infrastructure/api/repositories/github/GitHubRepository";
+import { useCallback, useContext, useState } from "react";
+import { Extensions } from "../../domain/Extensions";
+import ExtensionsObject from "../../domain/interfaces/ExtensionsObject";
+import VersionManagerContext from "../context/versionManagerContext";
+import { RepoValues } from "../views/home";
 
-const useExtensionList = (repoName: string, repoOwner: string) => {
+const useExtensionList = ({ repoName, repoOwner }: RepoValues) => {
   const [extensionList, setExtensionList] = useState<ExtensionsObject>();
   const [displayError, setDisplayError] = useState<boolean>(false);
+  const isRepoInfoFilled: boolean = Boolean(repoOwner && repoName);
+  const isButtonDisabled: boolean = isRepoInfoFilled ? false : true;
+  const context = useContext(VersionManagerContext);
 
   const handleError = () => {
     setDisplayError(true);
@@ -13,21 +18,20 @@ const useExtensionList = (repoName: string, repoOwner: string) => {
 
   const getExtensionList = useCallback(() => {
     setDisplayError(false);
-    // TODO: app layer shouldn't know about infra (repository)
-    // TODO: inject needed dependency in versionManagerService from outside app layer to get proper repository
-    // const extensions: Extensions = await versionManagerService()
-    new GitHubRepository()
+
+    context
+      .versionManagerRepository()
       .getExtensions(repoName, repoOwner)
-      .then((extensions) => {
+      .then((extensions: Extensions) => {
         setExtensionList(extensions.groupByType());
       })
       .catch(() => {
         handleError();
       });
-  }, [repoName, repoOwner]);
+  }, [context, repoName, repoOwner]);
 
   const handleOnClick = () => {
-    if (repoOwner && repoName) {
+    if (isRepoInfoFilled) {
       getExtensionList();
     }
   };
@@ -49,6 +53,7 @@ const useExtensionList = (repoName: string, repoOwner: string) => {
     extensionList,
     handleOnSearch,
     displayError,
+    isButtonDisabled,
   };
 };
 

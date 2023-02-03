@@ -1,4 +1,4 @@
-import ExtensionsObject from "./ExtensionsObject";
+import ExtensionsObject from "./interfaces/ExtensionsObject";
 
 export class Extensions {
     constructor(private values: Array<{type: string, path: string}>) {
