@@ -1,9 +1,9 @@
 import { branchesMock, treeMock } from './mockedData/data';
-import { httpGET } from "../src/infrastructure/api/httpClient"
-import { apiParams } from "../src/infrastructure/api/repositories/github/apiParams"
-import { endPoints } from "../src/infrastructure/api/repositories/github/apiEndpoints"
+import { httpGET } from "../src/infrastructure/httpClient"
+import { apiParams } from "../src/infrastructure/repositories/github/apiParams"
+import { endPoints } from "../src/infrastructure/repositories/github/apiEndpoints"
 import { VersionManager } from '../src/domain/VersionManager';
-import { GitHubRepository } from '../src/infrastructure/api/repositories/github/GitHubRepository';
+import { GitHubRepository } from '../src/infrastructure/repositories/github/GitHubRepository';
 import { Extensions } from '../src/domain/Extensions';
 
 // @ts-ignore

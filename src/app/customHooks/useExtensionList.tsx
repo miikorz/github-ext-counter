@@ -3,6 +3,8 @@ import { Extensions } from "../../domain/Extensions";
 import ExtensionsObject from "../../domain/interfaces/ExtensionsObject";
 import VersionManagerContext from "../context/versionManagerContext";
 import { RepoValues } from "../views/home";
+import { VersionManager } from "../../domain/VersionManager";
+import { config } from "../../config";
 
 const useExtensionList = ({ repoName, repoOwner }: RepoValues) => {
   const [extensionList, setExtensionList] = useState<ExtensionsObject>();
@@ -19,6 +21,10 @@ const useExtensionList = ({ repoName, repoOwner }: RepoValues) => {
   const getExtensionList = useCallback(() => {
     setDisplayError(false);
 
+    // * No matter the repository selected, we will always have a getExtensions method which will return an Extensions object
+
+    // ? instead of using context, we can use:
+    // ? new VersionManager(config.selectedRepository).getRepository()...
     context
       .versionManagerRepository()
       .getExtensions(repoName, repoOwner)

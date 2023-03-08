@@ -1,4 +1,4 @@
-import { Extensions } from '../../../../domain/Extensions';
+import { Extensions } from '../../../domain/Extensions';
 import { httpGET } from '../../httpClient';
 import { RepositoryFile, TreeApiResponse } from './interfaces/apiResult';
 import endPoints from './apiEndpoints';

@@ -1,4 +1,3 @@
-// TODO: move close to infra
 export interface RepositoryFile {
   path: string;
   mode: string;
